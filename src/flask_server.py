@@ -14,13 +14,19 @@ def get_predict_json(soln):
     return json_list
 
 
+## Flask Config ###
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 
-################################## Flask Services ##############################
+### Routes ###
+# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict
+@app.route('/api/covid19predict', methods=['GET'], endpoint='apicovid19predict_routes')
+def apicovid19predict_routes():
+    return open('routes.html').read()
+
 # http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict?IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01&PII=1&POP=8843000&TMAX=365
-@app.route('/api/covid19predict', methods=['GET'], endpoint='apicovid19predict')
-def apicovid19predict():
+@app.route('/api/covid19predict/progression', methods=['GET'], endpoint='apicovid19predict_progression')
+def apicovid19predict_progression():
     # params
     IP = request.args.get('IP')
     DMI = request.args.get('DMI')
@@ -39,7 +45,7 @@ def apicovid19predict():
 
     # return if has no arguments
     if(IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or PII == None or POP == None or TMAX == None):
-        return '<h2 style="text-align: center;"><strong>covid19predict (routes)</strong></h2><ul><li><strong>predict - api/covid19predict?</strong></li><li><strong>input information - <a href="http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/input">api/covid19predict/input</a></strong></li><li><strong>output information - <a href="http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/output">api/covid19predict/output</a></strong></li></ul>'
+        return 'Missing arguments..'
 
     # predict
     #slon = predict(5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 1, 8843000, 365)
@@ -63,7 +69,7 @@ def apicovid19predict_output():
     return '<h2 style="text-align: center;"><strong>covid19predict (output)</strong></h2><div><ul><li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S)</li><li><strong>Indiv&iacute;duos Expostos - infectados, mas ainda n&atilde;o infecciosos ou sintom&aacute;ticos</strong> (E);</li><li><strong>Indiv&iacute;duos infectados por classe de gravidade. A gravidade aumenta e assumimos que os indiv&iacute;duos devem passar por todas as classes anteriores</strong>:<ul><li><strong>Infec&ccedil;&atilde;o leve - hospitaliza&ccedil;&atilde;o n&atilde;o &eacute; necess&aacute;ria - Mild Infection</strong> (I1);</li><li><strong>Infec&ccedil;&atilde;o grave - hospitaliza&ccedil;&atilde;o necess&aacute;ria - Severe infection</strong> (I2);</li><li><strong>Infec&ccedil;&atilde;o critica - cuidados na UTI necess&aacute;ria - Critical infection</strong> (I3);</li></ul></li><li><strong>Indiv&iacute;duos que se recuperaram da doen&ccedil;a e agora est&atilde;o imunes</strong> (R);</li><li><strong>Indiv&iacute;duos mortos</strong> (D).</li></ul><p><strong>OBS.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o)</strong></p></div>'
 
 
-################################## Main #######################################
+### Main ###
 if __name__ == "__main__":
     app.run()
     #app.run(host='10.110.21.13', port=3012)
