@@ -1,0 +1,49 @@
+<h2 style="text-align: center;"><strong>covid19predict (parameters)</strong></h2>
+<p><strong>Input</strong></p>
+<div>
+        <ul>
+                <li><strong>Per&iacute;odo de incuba&ccedil;&atilde;o em dias</strong> (IP)</li>
+                <li><strong>Dura&ccedil;&atilde;o de infec&ccedil;&otilde;es leves em dias</strong> (DMI)</li>
+                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es leves</strong> (FM)</li>
+                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es graves</strong> (FS)</li>
+                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es cr&iacute;ticas</strong> (FC)</li>
+                <li><strong>Taxa de mortalidade de casos - fra&ccedil;&atilde;o deinfec&ccedil;&otilde;es resultando em
+                                morte</strong> (TMC)</li>
+                <li><strong>Tempo de interna&ccedil;&atilde;o na UTI at&eacute; a morte em dias</strong> (T_UIT_D)</li>
+                <li><strong>Dura&ccedil;&atilde;o da interna&ccedil;&atilde;o no hospital em dias</strong> (DH)</li>
+                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es leves</strong> (B1)</li>
+                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es graves, relativa &agrave;
+                                infec&ccedil;&atilde;o leve</strong>&nbsp;(B2)</li>
+                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es cr&iacute;ticas, relativa &agrave;
+                                infec&ccedil;&atilde;o leve</strong>&nbsp;(B3)</li>
+                <li><strong>Pessoas inicialmente infectadas&nbsp;</strong>(PII)</li>
+                <li><strong>Tamanho da popula&ccedil;&atilde;o </strong>(POP)</li>
+                <li><strong>Tempo de medi&ccedil;&atilde;o em dias</strong> (TMAX)</li>
+        </ul>
+</div>
+<p><strong>Output</strong></p>
+<div>
+        <ul>
+                <li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S)</li>
+                <li><strong>Indiv&iacute;duos Expostos - infectados, mas ainda n&atilde;o infecciosos ou
+                                sintom&aacute;ticos</strong> (E);</li>
+                <li><strong>Indiv&iacute;duos infectados por classe de gravidade. A gravidade aumenta e assumimos que os
+                                indiv&iacute;duos devem passar por todas as classes anteriores</strong>:
+                        <ul>
+                                <li><strong>Infec&ccedil;&atilde;o leve - hospitaliza&ccedil;&atilde;o n&atilde;o
+                                                &eacute;
+                                                necess&aacute;ria - Mild Infection</strong> (I1);</li>
+                                <li><strong>Infec&ccedil;&atilde;o grave - hospitaliza&ccedil;&atilde;o
+                                                necess&aacute;ria - Severe
+                                                infection</strong> (I2);</li>
+                                <li><strong>Infec&ccedil;&atilde;o critica - cuidados na UTI necess&aacute;ria -
+                                                Critical
+                                                infection</strong> (I3);</li>
+                        </ul>
+                </li>
+                <li><strong>Indiv&iacute;duos que se recuperaram da doen&ccedil;a e agora est&atilde;o imunes</strong>
+                        (R);</li>
+                <li><strong>Indiv&iacute;duos mortos</strong> (D).</li>
+        </ul>
+        <p><strong>OBS.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o)</strong></p>
+</div>
