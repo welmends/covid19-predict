@@ -1,4 +1,5 @@
 from seir_prediction import predict_progression, predict_progression_slow
+import sys
 import json
 import flask
 from flask import request, jsonify
@@ -118,5 +119,13 @@ def apicovid19predict_progressionSlow():
 
 ### Main ###
 if __name__ == "__main__":
-    app.run()
-    #app.run(host='10.110.21.13', port=3012)
+    if len(sys.argv) is not 2:
+        print("Usage: python3 flask_server.py [debug/release]")
+    else:
+        status = sys.argv[1]
+        if status == 'debug':
+            app.run()
+        elif status == 'release':
+            app.run(host='10.110.21.13', port=3012)
+        else:
+            print('Error: parameter must be [debug/release]')
