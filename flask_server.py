@@ -1,4 +1,4 @@
-from seir_prediction import predict_progression, predict_progression_slow
+from seir_prediction import predict_progression, predict_progression_slow, predict_hospital_capacity
 import sys
 import json
 import flask
@@ -109,6 +109,48 @@ def apicovid19predict_progressionSlow():
     #slon, slonSlow = predict_progression_slow(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00)
     slon, slonSlow = predict_progression_slow(
         POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3)
+
+    # json
+    json_list = get_predict_json_progression_slow(slon, slonSlow)
+
+    # return
+    return jsonify(json_list)
+
+# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progressionSlow?POP=8843000&PII=1&TMAX=365&IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01&R1=0.3&R2=0.0&R3=0.0&L1=1950&L2=140&P1=60&P2=150&P3=240
+@app.route('/api/covid19predict/hospitalCapacity', methods=['GET'], endpoint='apicovid19predict_hospitalCapacity')
+def apicovid19predict_hospitalCapacity():
+    # params
+    POP = request.args.get('POP')
+    PII = request.args.get('PII')
+    TMAX = request.args.get('TMAX')
+    IP = request.args.get('IP')
+    DMI = request.args.get('DMI')
+    FM = request.args.get('FM')
+    FS = request.args.get('FS')
+    FC = request.args.get('FC')
+    TMC = request.args.get('TMC')
+    T_UTI_D = request.args.get('T_UTI_D')
+    DH = request.args.get('DH')
+    B1 = request.args.get('B1')
+    B2 = request.args.get('B2')
+    B3 = request.args.get('B3')
+    R1 = request.args.get('R1')
+    R2 = request.args.get('R2')
+    R3 = request.args.get('R3')
+    L1 = request.args.get('L1')
+    L2 = request.args.get('L2')
+    P1 = request.args.get('P1')
+    P2 = request.args.get('P2')
+    P3 = request.args.get('P3')
+
+    # return if has no arguments
+    if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None or L1 == None or L2 == None or P1 == None or P2 == None or P3 == None):
+        return 'Missing arguments: {POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, L1, L2, P1, P2, P3}'
+
+    # predict
+    #slon, slonSlow = predict_hospital_capacity(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 1950, 140, 60, 150, 240)
+    slon, slonSlow = predict_hospital_capacity(
+        POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, L1, L2, P1, P2, P3)
 
     # json
     json_list = get_predict_json_progression_slow(slon, slonSlow)
