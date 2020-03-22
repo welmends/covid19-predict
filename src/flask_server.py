@@ -65,7 +65,7 @@ def apicovid19predict_progression():
 
     # return if has no arguments
     if(IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or PII == None or POP == None or TMAX == None):
-        return 'Missing arguments..'
+        return 'Missing arguments: {IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, PII, POP, TMAX}'
 
     # predict
     #slon = predict_progression(5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 1, 8843000, 365)
@@ -102,7 +102,7 @@ def apicovid19predict_progressionSlow():
 
     # return if has no arguments
     if(IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None or PII == None or POP == None or TMAX == None):
-        return 'Missing arguments..'
+        return 'Missing arguments: {IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, PII, POP, TMAX}'
 
     # predict
     #slon, slonSlow = predict_progression_slow(5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 1, 8843000, 365)
