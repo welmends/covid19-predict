@@ -44,10 +44,13 @@ def apicovid19predict_routes():
 def apicovid19predict_parameters():
     return open('parameters.html').read()
 
-# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progression?IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01&PII=1&POP=8843000&TMAX=365
+# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progression?POP=8843000&PII=1&TMAX=365&IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01
 @app.route('/api/covid19predict/progression', methods=['GET'], endpoint='apicovid19predict_progression')
 def apicovid19predict_progression():
     # params
+    POP = request.args.get('POP')
+    PII = request.args.get('PII')
+    TMAX = request.args.get('TMAX')
     IP = request.args.get('IP')
     DMI = request.args.get('DMI')
     FM = request.args.get('FM')
@@ -59,18 +62,15 @@ def apicovid19predict_progression():
     B1 = request.args.get('B1')
     B2 = request.args.get('B2')
     B3 = request.args.get('B3')
-    PII = request.args.get('PII')
-    POP = request.args.get('POP')
-    TMAX = request.args.get('TMAX')
 
     # return if has no arguments
-    if(IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or PII == None or POP == None or TMAX == None):
-        return 'Missing arguments: {IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, PII, POP, TMAX}'
+    if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None):
+        return 'Missing arguments: {POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3}'
 
     # predict
-    #slon = predict_progression(5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 1, 8843000, 365)
-    slon = predict_progression(IP, DMI, FM, FS, FC, TMC, T_UTI_D,
-                               DH, B1, B2, B3, PII, POP, TMAX)
+    #slon = predict_progression(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01)
+    slon = predict_progression(
+        POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3)
 
     # json
     json_list = get_predict_json_progression(slon)
@@ -78,10 +78,13 @@ def apicovid19predict_progression():
     # return
     return jsonify(json_list)
 
-# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progressionSlow?IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01&R1=0.3&R2=0.0&R3=0.0&PII=1&POP=8843000&TMAX=365
+# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progressionSlow?POP=8843000&PII=1&TMAX=365&IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01&R1=0.3&R2=0.0&R3=0.0
 @app.route('/api/covid19predict/progressionSlow', methods=['GET'], endpoint='apicovid19predict_progressionSlow')
 def apicovid19predict_progressionSlow():
     # params
+    POP = request.args.get('POP')
+    PII = request.args.get('PII')
+    TMAX = request.args.get('TMAX')
     IP = request.args.get('IP')
     DMI = request.args.get('DMI')
     FM = request.args.get('FM')
@@ -96,18 +99,15 @@ def apicovid19predict_progressionSlow():
     R1 = request.args.get('R1')
     R2 = request.args.get('R2')
     R3 = request.args.get('R3')
-    PII = request.args.get('PII')
-    POP = request.args.get('POP')
-    TMAX = request.args.get('TMAX')
 
     # return if has no arguments
-    if(IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None or PII == None or POP == None or TMAX == None):
-        return 'Missing arguments: {IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, PII, POP, TMAX}'
+    if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None):
+        return 'Missing arguments: {POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3}'
 
     # predict
-    #slon, slonSlow = predict_progression_slow(5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 1, 8843000, 365)
+    #slon, slonSlow = predict_progression_slow(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00)
     slon, slonSlow = predict_progression_slow(
-        IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, PII, POP, TMAX)
+        POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3)
 
     # json
     json_list = get_predict_json_progression_slow(slon, slonSlow)
