@@ -4,6 +4,7 @@ import json
 import flask
 from flask import request, jsonify
 from flask import Flask
+from flask_cors import CORS, cross_origin
 
 ### Encapsulate on JSON ###
 
@@ -32,6 +33,7 @@ def get_predict_json_progression_slow(soln, slonSlow):
 
 ### Flask Config ###
 app = flask.Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = False
 
 ### Routes ###
