@@ -21,11 +21,22 @@ def get_predict_json_progression(soln):
 
 
 def get_predict_json_progression_slow(soln, slonSlow):
-    day = 1
+    day = 0
     json_list = []
     for n, m in zip(soln, slonSlow):
         json_dict = json.dumps(
             {'_day': 1+(day/1), 'S': n[0], 'E': n[1], 'I1': n[2], 'I2': n[3], 'I3': n[4], 'R': n[5], 'D': n[6], 'S_': m[0], 'E_': m[1], 'I1_': m[2], 'I2_': m[3], 'I3_': m[4], 'R_': m[5], 'D_': m[6]})
+        json_list.append(json.loads(json_dict))
+        day = day + 1
+    return json_list
+
+
+def get_predict_json_hospital_capacity(soln, slonSlow, hospitalBed, ventilatedPatients):
+    day = 0
+    json_list = []
+    for n, m, h, v in zip(soln, slonSlow, hospitalBed, ventilatedPatients):
+        json_dict = json.dumps(
+            {'_day': 1+(day/1), 'S': n[0], 'E': n[1], 'I1': n[2], 'I2': n[3], 'I3': n[4], 'R': n[5], 'D': n[6], 'S_': m[0], 'E_': m[1], 'I1_': m[2], 'I2_': m[3], 'I3_': m[4], 'R_': m[5], 'D_': m[6], 'L1': h[0], 'L2': h[1], 'P1': v[0], 'P2': v[1], 'P3': v[2]})
         json_list.append(json.loads(json_dict))
         day = day + 1
     return json_list
@@ -150,12 +161,13 @@ def apicovid19predict_hospitalCapacity():
         return 'Missing arguments: {POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, L1, L2, P1, P2, P3}'
 
     # predict
-    #slon, slonSlow = predict_hospital_capacity(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 1950, 140, 60, 150, 240)
-    slon, slonSlow = predict_hospital_capacity(
+    #soln, solnSlow, hospitalBed, ventilatedPatients = predict_hospital_capacity(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 1950, 140, 60, 150, 240)
+    soln, solnSlow, hospitalBed, ventilatedPatients = predict_hospital_capacity(
         POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B1, B2, B3, R1, R2, R3, L1, L2, P1, P2, P3)
 
     # json
-    json_list = get_predict_json_progression_slow(slon, slonSlow)
+    json_list = get_predict_json_progression_slow(
+        slon, slonSlow, hospitalBed, ventilatedPatients)
 
     # return
     return jsonify(json_list)

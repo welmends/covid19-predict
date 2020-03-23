@@ -25,7 +25,7 @@ def params(g, p, IncubPeriod, FracMild, FracCritical, FracSevere, TimeICUDeath, 
     p[1] = (1/DurHosp)*(FracCritical/(FracCritical+FracSevere))
     g[1] = (1/DurHosp)-p[1]  # Taxa de recuperação de I2
 
-    tvec = np.arange(0, tmax, 1.0)
+    tvec = np.arange(0, tmax, 1)
     # Inicia vetor da população (cada índice para cada tipo de infectado, exposto, etc)
     ic = np.zeros(6)
     ic[0] = i  # População sucetível = tamanho da população
@@ -96,7 +96,7 @@ def predict_progression(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, DH, B
     a, u, g, p, tvec, ic = params(
         g, p, IP, FM, FC, FS, T_UTI_D, TMC, DMI, DH, TMAX, PII)
 
-    # Inicia vetor de taxa de transmissão
+    # Ajuste de valores
     B1 = B1/POP
     B2 = B2*B1
     B3 = B3*B1
@@ -159,7 +159,7 @@ def predict_progression_slow(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D, 
     a, u, g, p, tvec, ic = params(
         g, p, IP, FM, FC, FS, T_UTI_D, TMC, DMI, DH, TMAX, PII)
 
-    # Inicia vetor de taxa de transmissão
+    # Ajuste de valores
     B1 = B1/POP
     B2 = B2*B1
     B3 = B3*B1
@@ -239,12 +239,17 @@ def predict_hospital_capacity(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D,
     a, u, g, p, tvec, ic = params(
         g, p, IP, FM, FC, FS, T_UTI_D, TMC, DMI, DH, TMAX, PII)
 
-    # Inicia vetor de taxa de transmissão
+    # Ajuste de valores
     B1 = B1/POP
     B2 = B2*B1
     B3 = B3*B1
     b = np.array([B1, B2, B3])
     bSlow = np.array([(1-R1)*B1, (1-R2)*B2, (1-R3)*B3])
+    L1_total = L1*POP
+    L2_total = L2*POP
+    P1_total = P1*POP
+    P2_total = P2*POP
+    P3_total = P3*POP
 
     # Simulacao
     soln = odeint(seir, ic, tvec, args=(b, a, g, p, u, POP))
@@ -254,6 +259,9 @@ def predict_hospital_capacity(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D,
     solnSlow = np.hstack(
         (POP-np.sum(solnSlow, axis=1, keepdims=True), solnSlow))
 
+    hospitalBed = [L1_total, L2_total]
+    ventilatedPatients = [P1_total, P2_total, P3_total]
+
     # # Calcula a taxa reprodutiva básica
     # R0 = taxa_reprodutiva(POP, b, p, g, u)
     # R0Slow = taxa_reprodutiva(N, bSlow, p, g, u)
@@ -262,4 +270,4 @@ def predict_hospital_capacity(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D,
     # (rSlow, DoublingTimeSlow) = growth_rate(tvec, solnSlow, 30, 40, i)
 
     # soln -> [0:TMAX][S, E, I1, I2, I3, R, D]
-    return soln, solnSlow
+    return soln, solnSlow, hospitalBed, ventilatedPatients
