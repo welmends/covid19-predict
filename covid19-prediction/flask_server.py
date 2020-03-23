@@ -55,10 +55,10 @@ app.config["DEBUG"] = False
 def apicovid19predict_routes():
     return open('routes.html').read()
 
-# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/parameters
-@app.route('/api/covid19predict/parameters', methods=['GET'], endpoint='apicovid19predict_parameters')
-def apicovid19predict_parameters():
-    return open('parameters.html').read()
+# http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/information
+@app.route('/api/covid19predict/information', methods=['GET'], endpoint='apicovid19predict_information')
+def apicovid19predict_information():
+    return open('information.html').read()
 
 # http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progression?POP=1000&PII=1&TMAX=10&IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01
 @app.route('/api/covid19predict/progression', methods=['GET'], endpoint='apicovid19predict_progression')

@@ -1,4 +1,40 @@
-<h2 style="text-align: center;"><strong>covid19predict (parameters)</strong></h2>
+<h2 style="text-align: center;"><strong>covid19predict (information)</strong></h2>
+<p><strong>Simulation</strong></p>
+<div>
+        <ul>
+                <li><strong>Progression Simulation - </strong>Simule o curso natural de uma epidemia de COVID-19 em uma
+                        &uacute;nica popula&ccedil;&atilde;o sem nenhuma interven&ccedil;&atilde;o.
+                        <ul>
+                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
+                                        B3}</li>
+                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D}</li>
+                        </ul>
+                </li>
+                <li><strong>Progression Simulation with Intervention</strong> -&nbsp;Simule a mudan&ccedil;a do
+                        avan&ccedil;o da epidemia de COVID-19 em uma &uacute;nica popula&ccedil;&atilde;o com medidas de
+                        dist&acirc;nciamento social (ficando em casa).
+                        <ul>
+                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
+                                        B3, R1, R2, R3}</li>
+                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_, I2_, I3_,
+                                        R_, D_}</li>
+                        </ul>
+                </li>
+                <li><strong>Progression Simulation with Intervention in comparison with Hospital Capacity</strong>
+                        -&nbsp;Simule casos previstos do COVID-19 versus a capacidade do sistema de sa&uacute;de de
+                        cuidar deles. Os cuidados necess&aacute;rios dependem da gravidade da doen&ccedil;a -
+                        indiv&iacute;duos com infec&ccedil;&atilde;o "grave" requerem hospitaliza&ccedil;&atilde;o e
+                        indiv&iacute;duos com infec&ccedil;&atilde;o "cr&iacute;tica" geralmente requerem cuidados no
+                        n&iacute;vel da UTI e ventila&ccedil;&atilde;o mec&acirc;nica.
+                        <ul>
+                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
+                                        B3, R1, R2, R3, L1, L2, P1, P2, P3}</li>
+                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_, I2_, I3_,
+                                        R_, D_, TL1, TL2, TP1, TP2, TP3}</li>
+                        </ul>
+                </li>
+        </ul>
+</div>
 <p><strong>Input</strong></p>
 <div>
         <ul>
@@ -40,7 +76,8 @@
 <p><strong>Output</strong></p>
 <div>
         <ul>
-                <li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S)</li>
+                <li><strong>Dia</strong> (_day);</li>
+                <li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S);</li>
                 <li><strong>Indiv&iacute;duos Expostos - infectados, mas ainda n&atilde;o infecciosos ou
                                 sintom&aacute;ticos</strong> (E);</li>
                 <li><strong>Indiv&iacute;duos infectados por classe de gravidade. A gravidade aumenta e assumimos que os
@@ -57,14 +94,15 @@
                 <li><strong>Indiv&iacute;duos que se recuperaram da doen&ccedil;a e agora est&atilde;o imunes</strong>
                         (R);</li>
                 <li><strong>Indiv&iacute;duos mortos</strong> (D);</li>
-                <li><strong>Total de leitos hospitalares dispon&iacute;veis</strong> (L1);</li>
-                <li><strong>Total de leitos de UTI dispon&iacute;veis</strong> (L2);</li>
-                <li><strong>Total de pacientes que podem ser ventilados em protocolos convencionais</strong> (P1);</li>
+                <li><strong>Total de leitos hospitalares dispon&iacute;veis</strong> (TL1);</li>
+                <li><strong>Total de leitos de UTI dispon&iacute;veis</strong> (TL2);</li>
+                <li><strong>Total de pacientes que podem ser ventilados em protocolos convencionais</strong> (TP1);</li>
                 <li><strong>Total de pacientes que podem ser ventilados em protocolo de conting&ecirc;ncia</strong>
-                        (P2);</li>
-                <li><strong>Total de pacientes que podem ser ventilados em protocolo de crise</strong> (P3).</li>
+                        (TP2);</li>
+                <li><strong>Total de pacientes que podem ser ventilados em protocolo de crise</strong> (TP3).</li>
         </ul>
-        <p><strong>OBS1.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o)</strong></p>
+        <p><strong>OBS1.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o).</strong></p>
         <p><strong>OBS2.: S_, E_, I1_, I2_, I3_, R_ e D_ s&atilde;o relativos &agrave; c&aacute;lculos com
-                        redu&ccedil;&atilde;o na taxa de transmiss&atilde;o (interven&ccedil;&atilde;o)</strong></p>
+                        redu&ccedil;&atilde;o na taxa de transmiss&atilde;o (interven&ccedil;&atilde;o).</strong></p>
+        <p><strong>OBS3.: TL1, TL2, TP1, TP2, TP3 s&atilde;o constantes.</strong></p>
 </div>
