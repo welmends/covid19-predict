@@ -25,7 +25,7 @@ def params(g, p, IncubPeriod, FracMild, FracCritical, FracSevere, TimeICUDeath, 
     p[1] = (1/DurHosp)*(FracCritical/(FracCritical+FracSevere))
     g[1] = (1/DurHosp)-p[1]  # Taxa de recuperação de I2
 
-    tvec = np.arange(0, tmax, 0.1)
+    tvec = np.arange(0, tmax, 1.0)
     # Inicia vetor da população (cada índice para cada tipo de infectado, exposto, etc)
     ic = np.zeros(6)
     ic[0] = i  # População sucetível = tamanho da população
