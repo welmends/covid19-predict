@@ -38,7 +38,7 @@ def get_predict_json_hospital_capacity(soln, slonSlow, hospitalBed, ventilatedPa
     v = ventilatedPatients
     for n, m in zip(soln, slonSlow):
         json_dict = json.dumps(
-            {'_day': 1+(day/1), 'S': n[0], 'E': n[1], 'I1': n[2], 'I2': n[3], 'I3': n[4], 'R': n[5], 'D': n[6], 'S_': m[0], 'E_': m[1], 'I1_': m[2], 'I2_': m[3], 'I3_': m[4], 'R_': m[5], 'D_': m[6], 'L1': h[0], 'L2': h[1], 'P1': v[0], 'P2': v[1], 'P3': v[2]})
+            {'_day': 1+(day/1), 'S': n[0], 'E': n[1], 'I1': n[2], 'I2': n[3], 'I3': n[4], 'R': n[5], 'D': n[6], 'S_': m[0], 'E_': m[1], 'I1_': m[2], 'I2_': m[3], 'I3_': m[4], 'R_': m[5], 'D_': m[6], 'TL1': h[0], 'TL2': h[1], 'TP1': v[0], 'TP2': v[1], 'TP3': v[2]})
         json_list.append(json.loads(json_dict))
         day = day + 1
     return json_list
