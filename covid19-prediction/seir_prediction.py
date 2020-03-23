@@ -221,16 +221,16 @@ def predict_hospital_capacity(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D,
     R2 = float(R2)
     # R3 - Redução em B3
     R3 = float(R3)
-    # L1 - Leitos Hospitalares disponíveis
-    L1 = int(L1)
-    # L2 - Leitos de UTI disponíveis
-    L2 = int(L2)
+    # L1 - Leitos Hospitalares disponíveis por pessoa
+    L1 = float(L1)
+    # L2 - Leitos de UTI disponíveis por pessoa
+    L2 = float(L2)
     # P1 - Pacientes que podem ser ventilados em protocolos convencionais
-    P1 = int(P1)
+    P1 = float(P1)
     # P2 - Pacientes que podem ser ventilados em protocolo de contingência
-    P2 = int(P2)
+    P2 = float(P2)
     # P3 - Pacientes que podem ser ventilados em protocolo de crise
-    P3 = int(P3)
+    P3 = float(P3)
 
     # --- Definir parametros e executar ODE
     g = np.zeros(4)
@@ -259,8 +259,8 @@ def predict_hospital_capacity(POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, T_UTI_D,
     solnSlow = np.hstack(
         (POP-np.sum(solnSlow, axis=1, keepdims=True), solnSlow))
 
-    hospitalBed = [L1_total, L2_total]
-    ventilatedPatients = [P1_total, P2_total, P3_total]
+    hospitalBed = [str(L1_total), str(L2_total)]
+    ventilatedPatients = [str(P1_total), str(P2_total), str(P3_total)]
 
     # # Calcula a taxa reprodutiva básica
     # R0 = taxa_reprodutiva(POP, b, p, g, u)
