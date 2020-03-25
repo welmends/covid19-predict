@@ -1,108 +1,172 @@
-<h2 style="text-align: center;"><strong>covid19predict (information)</strong></h2>
-<p><strong>Simulation</strong></p>
-<div>
-        <ul>
-                <li><strong>Progression Simulation - </strong>Simule o curso natural de uma epidemia de COVID-19 em uma
-                        &uacute;nica popula&ccedil;&atilde;o sem nenhuma interven&ccedil;&atilde;o.
-                        <ul>
-                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
-                                        B3}</li>
-                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D}</li>
-                        </ul>
-                </li>
-                <li><strong>Progression Simulation with Intervention</strong> -&nbsp;Simule a mudan&ccedil;a do
-                        avan&ccedil;o da epidemia de COVID-19 em uma &uacute;nica popula&ccedil;&atilde;o com medidas de
-                        dist&acirc;nciamento social (ficando em casa).
-                        <ul>
-                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
-                                        B3, R1, R2, R3}</li>
-                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_, I2_, I3_,
-                                        R_, D_}</li>
-                        </ul>
-                </li>
-                <li><strong>Progression Simulation with Intervention in comparison with Hospital Capacity</strong>
-                        -&nbsp;Simule casos previstos do COVID-19 versus a capacidade do sistema de sa&uacute;de de
-                        cuidar deles. Os cuidados necess&aacute;rios dependem da gravidade da doen&ccedil;a -
-                        indiv&iacute;duos com infec&ccedil;&atilde;o "grave" requerem hospitaliza&ccedil;&atilde;o e
-                        indiv&iacute;duos com infec&ccedil;&atilde;o "cr&iacute;tica" geralmente requerem cuidados no
-                        n&iacute;vel da UTI e ventila&ccedil;&atilde;o mec&acirc;nica.
-                        <ul>
-                                <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH, B1, B2,
-                                        B3, R1, R2, R3, L1, L2, P1, P2, P3}</li>
-                                <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_, I2_, I3_,
-                                        R_, D_, TL1, TL2, TP1, TP2, TP3}</li>
-                        </ul>
-                </li>
-        </ul>
-</div>
-<p><strong>Input</strong></p>
-<div>
-        <ul>
-                <li><strong>Tamanho da popula&ccedil;&atilde;o&nbsp;</strong>(POP)</li>
-                <li><strong>Pessoas inicialmente infectadas&nbsp;</strong>(PII)</li>
-                <li><strong>Tempo de medi&ccedil;&atilde;o em dias</strong> (TMAX)</li>
-                <li><strong>Per&iacute;odo de incuba&ccedil;&atilde;o em dias</strong> (IP)</li>
-                <li><strong>Dura&ccedil;&atilde;o de infec&ccedil;&otilde;es leves em dias</strong> (DMI)</li>
-                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es leves - entre 0 e 1</strong>(FM)</li>
-                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es graves - entre 0 e 1</strong> (FS)</li>
-                <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es cr&iacute;ticas - entre 0 e 1</strong> (FC)
-                </li>
-                <li><strong>Taxa de mortalidade de casos - fra&ccedil;&atilde;o de infec&ccedil;&otilde;es resultando em
-                                morte - entre 0 e 1</strong> (TMC)</li>
-                <li><strong>Tempo de interna&ccedil;&atilde;o na UTI at&eacute; a morte em dias</strong> (TUD)</li>
-                <li><strong>Dura&ccedil;&atilde;o da interna&ccedil;&atilde;o no hospital em dias</strong> (DH)</li>
-                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es leves</strong> <strong> - entre 0 e
-                                3&nbsp;</strong>(B1)</li>
-                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es graves, relativa &agrave;
-                                infec&ccedil;&atilde;o leve - entre 0 e 3</strong>&nbsp;(B2)</li>
-                <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es cr&iacute;ticas, relativa &agrave;
-                                infec&ccedil;&atilde;o leve - entre 0 e 3</strong>&nbsp;(B3)</li>
-                <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es leves - entre
-                                0 e 1&nbsp;</strong>(R1)</li>
-                <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es graves,
-                                relativa &agrave; infec&ccedil;&atilde;o leve - entre 0 e 1</strong>&nbsp;(R2)</li>
-                <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es
-                                cr&iacute;ticas, relativa &agrave; infec&ccedil;&atilde;o leve - entre 0 e
-                                1</strong>&nbsp;(R3)</li>
-                <li><strong>Leitos hospitalares dispon&iacute;veis por pessoa</strong> (L1)</li>
-                <li><strong>Leitos de UTI dispon&iacute;veis por pessoa&nbsp;</strong>(L2)</li>
-                <li><strong>Pacientes que podem ser ventilados em protocolos convencionais por pessoa</strong>&nbsp;(P1)
-                </li>
-                <li><strong>Pacientes que podem ser ventilados em protocolo de conting&ecirc;ncia por pessoa</strong>
-                        (P2)</li>
-                <li><strong>Pacientes que podem ser ventilados em protocolo de crise por pessoa</strong> (P3)</li>
-        </ul>
-</div>
-<p><strong>Output</strong></p>
-<div>
-        <ul>
-                <li><strong>Dia</strong> (_day);</li>
-                <li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S);</li>
-                <li><strong>Indiv&iacute;duos Expostos - infectados, mas ainda n&atilde;o infecciosos ou
-                                sintom&aacute;ticos</strong> (E);</li>
-                <li><strong>Indiv&iacute;duos infectados por classe de gravidade. A gravidade aumenta e assumimos que os
-                                indiv&iacute;duos devem passar por todas as classes anteriores</strong>:
-                        <ul>
-                                <li><strong>Infec&ccedil;&atilde;o leve - hospitaliza&ccedil;&atilde;o n&atilde;o
-                                                &eacute; necess&aacute;ria - Mild Infection</strong> (I1);</li>
-                                <li><strong>Infec&ccedil;&atilde;o grave - hospitaliza&ccedil;&atilde;o
-                                                necess&aacute;ria - Severe infection</strong> (I2);</li>
-                                <li><strong>Infec&ccedil;&atilde;o critica - cuidados na UTI necess&aacute;ria -
-                                                Critical infection</strong> (I3);</li>
-                        </ul>
-                </li>
-                <li><strong>Indiv&iacute;duos que se recuperaram da doen&ccedil;a e agora est&atilde;o imunes</strong>
-                        (R);</li>
-                <li><strong>Indiv&iacute;duos mortos</strong> (D);</li>
-                <li><strong>Total de leitos hospitalares dispon&iacute;veis</strong> (TL1);</li>
-                <li><strong>Total de leitos de UTI dispon&iacute;veis</strong> (TL2);</li>
-                <li><strong>Total de pacientes que podem ser ventilados em protocolos convencionais</strong> (TP1);</li>
-                <li><strong>Total de pacientes que podem ser ventilados em protocolo de conting&ecirc;ncia</strong>
-                        (TP2);</li>
-                <li><strong>Total de pacientes que podem ser ventilados em protocolo de crise</strong> (TP3).</li>
-        </ul>
-        <p><strong>OBS1.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o).</strong></p>
-        <p><strong>OBS2.: S_, E_, I1_, I2_, I3_, R_ e D_ s&atilde;o relativos &agrave; c&aacute;lculos com
-                        redu&ccedil;&atilde;o na taxa de transmiss&atilde;o (interven&ccedil;&atilde;o).</strong></p>
-        <p><strong>OBS3.: TL1, TL2, TP1, TP2, TP3 s&atilde;o constantes.</strong></p>
-</div>
+<html>
+
+<head>
+        <title>Information</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+        <div class="jumbotron text-left">
+
+                <h2 style="text-align: center;"><strong>covid19predict (information)</strong></h2>
+
+        </div>
+        <div>
+                <p><strong>Simulation</strong></p>
+                <ul>
+                        <li><strong>Progression Simulation - </strong>Simule o curso natural de uma epidemia de COVID-19
+                                em uma
+                                &uacute;nica popula&ccedil;&atilde;o sem nenhuma interven&ccedil;&atilde;o.
+                                <ul>
+                                        <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH,
+                                                B1, B2,
+                                                B3}</li>
+                                        <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D}</li>
+                                </ul>
+                        </li>
+                        <li><strong>Progression Simulation with Intervention</strong> -&nbsp;Simule a mudan&ccedil;a do
+                                avan&ccedil;o da epidemia de COVID-19 em uma &uacute;nica popula&ccedil;&atilde;o com
+                                medidas de
+                                dist&acirc;nciamento social (ficando em casa).
+                                <ul>
+                                        <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH,
+                                                B1, B2,
+                                                B3, R1, R2, R3}</li>
+                                        <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_,
+                                                I2_, I3_,
+                                                R_, D_}</li>
+                                </ul>
+                        </li>
+                        <li><strong>Progression Simulation with Intervention in comparison with Hospital
+                                        Capacity</strong>
+                                -&nbsp;Simule casos previstos do COVID-19 versus a capacidade do sistema de sa&uacute;de
+                                de
+                                cuidar deles. Os cuidados necess&aacute;rios dependem da gravidade da doen&ccedil;a -
+                                indiv&iacute;duos com infec&ccedil;&atilde;o "grave" requerem
+                                hospitaliza&ccedil;&atilde;o e
+                                indiv&iacute;duos com infec&ccedil;&atilde;o "cr&iacute;tica" geralmente requerem
+                                cuidados no
+                                n&iacute;vel da UTI e ventila&ccedil;&atilde;o mec&acirc;nica.
+                                <ul>
+                                        <li><strong>Input: </strong>{POP, PII, TMAX, IP, DMI, FM, FS, FC, TMC, TUD, DH,
+                                                B1, B2,
+                                                B3, R1, R2, R3, L1, L2, P1, P2, P3}</li>
+                                        <li><strong>Output:&nbsp;</strong>{_day, S, E, I1, I2, I3, R, D, S_, E_, I1_,
+                                                I2_, I3_,
+                                                R_, D_, TL1, TL2, TP1, TP2, TP3}</li>
+                                </ul>
+                        </li>
+                </ul>
+        </div>
+        <p><strong>Input</strong></p>
+        <div>
+                <ul>
+                        <li><strong>Tamanho da popula&ccedil;&atilde;o&nbsp;</strong>(POP)</li>
+                        <li><strong>Pessoas inicialmente infectadas&nbsp;</strong>(PII)</li>
+                        <li><strong>Tempo de medi&ccedil;&atilde;o em dias</strong> (TMAX)</li>
+                        <li><strong>Per&iacute;odo de incuba&ccedil;&atilde;o em dias</strong> (IP)</li>
+                        <li><strong>Dura&ccedil;&atilde;o de infec&ccedil;&otilde;es leves em dias</strong> (DMI)</li>
+                        <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es leves - entre 0 e 1</strong>(FM)
+                        </li>
+                        <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es graves - entre 0 e 1</strong> (FS)
+                        </li>
+                        <li><strong>Fra&ccedil;&atilde;o de infec&ccedil;&otilde;es cr&iacute;ticas - entre 0 e
+                                        1</strong> (FC)
+                        </li>
+                        <li><strong>Taxa de mortalidade de casos - fra&ccedil;&atilde;o de infec&ccedil;&otilde;es
+                                        resultando em
+                                        morte - entre 0 e 1</strong> (TMC)</li>
+                        <li><strong>Tempo de interna&ccedil;&atilde;o na UTI at&eacute; a morte em dias</strong> (TUD)
+                        </li>
+                        <li><strong>Dura&ccedil;&atilde;o da interna&ccedil;&atilde;o no hospital em dias</strong> (DH)
+                        </li>
+                        <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es leves</strong> <strong> - entre
+                                        0 e
+                                        3&nbsp;</strong>(B1)</li>
+                        <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es graves, relativa &agrave;
+                                        infec&ccedil;&atilde;o leve - entre 0 e 3</strong>&nbsp;(B2)</li>
+                        <li><strong>Taxa de transmiss&atilde;o - infec&ccedil;&otilde;es cr&iacute;ticas, relativa
+                                        &agrave;
+                                        infec&ccedil;&atilde;o leve - entre 0 e 3</strong>&nbsp;(B3)</li>
+                        <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es leves
+                                        - entre
+                                        0 e 1&nbsp;</strong>(R1)</li>
+                        <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es
+                                        graves,
+                                        relativa &agrave; infec&ccedil;&atilde;o leve - entre 0 e 1</strong>&nbsp;(R2)
+                        </li>
+                        <li><strong>Redu&ccedil;&atilde;o na taxa de transmiss&atilde;o - infec&ccedil;&otilde;es
+                                        cr&iacute;ticas, relativa &agrave; infec&ccedil;&atilde;o leve - entre 0 e
+                                        1</strong>&nbsp;(R3)</li>
+                        <li><strong>Leitos hospitalares dispon&iacute;veis por pessoa</strong> (L1)</li>
+                        <li><strong>Leitos de UTI dispon&iacute;veis por pessoa&nbsp;</strong>(L2)</li>
+                        <li><strong>Pacientes que podem ser ventilados em protocolos convencionais por
+                                        pessoa</strong>&nbsp;(P1)
+                        </li>
+                        <li><strong>Pacientes que podem ser ventilados em protocolo de conting&ecirc;ncia por
+                                        pessoa</strong>
+                                (P2)</li>
+                        <li><strong>Pacientes que podem ser ventilados em protocolo de crise por pessoa</strong> (P3)
+                        </li>
+                </ul>
+        </div>
+        <p><strong>Output</strong></p>
+        <div>
+                <ul>
+                        <li><strong>Dia</strong> (_day);</li>
+                        <li><strong>Indiv&iacute;duos Suscet&iacute;veis</strong> (S);</li>
+                        <li><strong>Indiv&iacute;duos Expostos - infectados, mas ainda n&atilde;o infecciosos ou
+                                        sintom&aacute;ticos</strong> (E);</li>
+                        <li><strong>Indiv&iacute;duos infectados por classe de gravidade. A gravidade aumenta e
+                                        assumimos que os
+                                        indiv&iacute;duos devem passar por todas as classes anteriores</strong>:
+                                <ul>
+                                        <li><strong>Infec&ccedil;&atilde;o leve - hospitaliza&ccedil;&atilde;o
+                                                        n&atilde;o
+                                                        &eacute; necess&aacute;ria - Mild Infection</strong> (I1);</li>
+                                        <li><strong>Infec&ccedil;&atilde;o grave - hospitaliza&ccedil;&atilde;o
+                                                        necess&aacute;ria - Severe infection</strong> (I2);</li>
+                                        <li><strong>Infec&ccedil;&atilde;o critica - cuidados na UTI necess&aacute;ria -
+                                                        Critical infection</strong> (I3);</li>
+                                </ul>
+                        </li>
+                        <li><strong>Indiv&iacute;duos que se recuperaram da doen&ccedil;a e agora est&atilde;o
+                                        imunes</strong>
+                                (R);</li>
+                        <li><strong>Indiv&iacute;duos mortos</strong> (D);</li>
+                        <li><strong>Total de leitos hospitalares dispon&iacute;veis</strong> (TL1);</li>
+                        <li><strong>Total de leitos de UTI dispon&iacute;veis</strong> (TL2);</li>
+                        <li><strong>Total de pacientes que podem ser ventilados em protocolos convencionais</strong>
+                                (TP1);</li>
+                        <li><strong>Total de pacientes que podem ser ventilados em protocolo de
+                                        conting&ecirc;ncia</strong>
+                                (TP2);</li>
+                        <li><strong>Total de pacientes que podem ser ventilados em protocolo de crise</strong> (TP3).
+                        </li>
+                </ul>
+                <p><strong>OBS1.: N = S + E+ I1 + I2 + I3 + R + D (Tamanho total da popula&ccedil;&atilde;o).</strong>
+                </p>
+                <p><strong>OBS2.: S_, E_, I1_, I2_, I3_, R_ e D_ s&atilde;o relativos &agrave; c&aacute;lculos com
+                                redu&ccedil;&atilde;o na taxa de transmiss&atilde;o
+                                (interven&ccedil;&atilde;o).</strong></p>
+                <p><strong>OBS3.: TL1, TL2, TP1, TP2, TP3 s&atilde;o constantes.</strong></p>
+        </div>
+</body>
+
+</html>
