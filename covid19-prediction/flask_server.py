@@ -2,9 +2,10 @@ from seir_prediction import predict_progression, predict_progression_slow, predi
 import sys
 import json
 import flask
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 from flask import Flask
 from flask_cors import CORS, cross_origin
+sys.path.append('templates')
 
 ### Encapsulate on JSON ###
 
@@ -50,15 +51,20 @@ CORS(app)
 app.config["DEBUG"] = False
 
 ### Routes ###
+# http://lapisco.fortaleza.ifce.edu.br:3012
+@app.route('/', methods=['GET'], endpoint='apicovid19predict')
+def apicovid19predict():
+    return render_template('index.html')
+
 # http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict
 @app.route('/api/covid19predict', methods=['GET'], endpoint='apicovid19predict_routes')
 def apicovid19predict_routes():
-    return open('routes.html').read()
+    return render_template('routes.html')
 
 # http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/information
 @app.route('/api/covid19predict/information', methods=['GET'], endpoint='apicovid19predict_information')
 def apicovid19predict_information():
-    return open('information.html').read()
+    return render_template('information.html')
 
 # http://lapisco.fortaleza.ifce.edu.br:3012/api/covid19predict/progression?POP=1000&PII=1&TMAX=10&IP=5&DMI=10&FM=0.8&FS=0.15&FC=0.05&TMC=0.02&T_UTI_D=7&DH=11&B1=0.33&B2=0.01&B3=0.01
 @app.route('/api/covid19predict/progression', methods=['GET'], endpoint='apicovid19predict_progression')
@@ -81,7 +87,7 @@ def apicovid19predict_progression():
 
     # return if has no arguments
     if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None):
-        return open('missing_arguments.html').read()
+        return render_template('missing_arguments.html')
 
     # predict
     #slon = predict_progression(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01)
@@ -118,7 +124,7 @@ def apicovid19predict_progressionSlow():
 
     # return if has no arguments
     if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None):
-        return open('missing_arguments.html').read()
+        return render_template('missing_arguments.html')
 
     # predict
     #slon, slonSlow = predict_progression_slow(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00)
@@ -160,7 +166,7 @@ def apicovid19predict_hospitalCapacity():
 
     # return if has no arguments
     if(POP == None or PII == None or TMAX == None or IP == None or DMI == None or FM == None or FS == None or FC == None or TMC == None or T_UTI_D == None or DH == None or B1 == None or B2 == None or B3 == None or R1 == None or R2 == None or R3 == None or L1 == None or L2 == None or P1 == None or P2 == None or P3 == None):
-        return open('missing_arguments.html').read()
+        return render_template('missing_arguments.html')
 
     # predict
     #soln, solnSlow, hospitalBed, ventilatedPatients = predict_hospital_capacity(8843000, 1, 365, 5, 10, 0.8, 0.15, 0.05, 0.02, 7, 11, 0.33, 0.01, 0.01, 0.33, 0.00, 0.00, 0.005, 0.00014, 0.00006, 0.00015, 0.00024)
